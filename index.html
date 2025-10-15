@@ -4,32 +4,35 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Beach Bums Members — Coming Soon | Nude Beach Map</title>
-  <meta name="description" content="Beach Bums — the Nude Beach Map members club. Premium content, discounts, deep‑dive guides, and friendly forums. Founding spots opening soon." />
+  <meta name="description" content="Beach Bums — the Nude Beach Map members club. Premium content, discounts, deep-dive guides, and friendly forums. Founding spots opening soon." />
   <link rel="preconnect" href="https://js.hsforms.net">
   <style>
     :root{
-      --nbm-primary:#0cbab4; /* teal */
-      --nbm-secondary:#e49d25; /* sand/orange */
-      --nbm-accent:#f8c014; /* sunshine */
-      --nbm-ink:#343537; /* charcoal */
-      --nbm-deep:#26150e; /* rich accent */
-      --nbm-bright:#fff200; /* bright yellow */
-      --nbm-paper:#ffffff; /* white */
+      --nbm-primary:#0cbab4;  /* teal */
+      --nbm-secondary:#e49d25;/* orange (CTA) */
+      --nbm-accent:#f8c014;   /* sunshine */
+      --nbm-ink:#343537;      /* charcoal */
+      --nbm-deep:#26150e;     /* rich accent */
+      --nbm-bright:#fff200;   /* bright yellow (unused here) */
+      --nbm-paper:#ffffff;    /* white */
       --radius:24px;
     }
     *{box-sizing:border-box}
     body{
-      margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif; color:var(--nbm-ink);
-      background: linear-gradient(180deg,#f9fafb, #ffffff);
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      color:var(--nbm-ink);
+      background:linear-gradient(180deg,#f9fafb,#ffffff);
     }
     .wrap{max-width:1120px; padding:48px 20px; margin:0 auto}
 
-    /* header progress accent */
+    /* top scroll progress */
     .scrollbar{position:fixed; top:0; left:0; height:4px; width:0; background:linear-gradient(90deg,var(--nbm-primary),var(--nbm-accent)); z-index:50; box-shadow:0 0 10px rgba(0,0,0,.15)}
 
     .card{position:relative; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:var(--radius); box-shadow:0 10px 24px rgba(0,0,0,.06); overflow:hidden}
-    .heroGlow{position:absolute; inset:0; pointer-events:none; mask-image: radial-gradient(60% 60% at 50% 0%, #000 40%, transparent 100%);}
-    .heroGlow:before{content:""; position:absolute; left:50%; top:-110px; width:1200px; height:260px; transform:translateX(-50%); filter: blur(48px);
+    .heroGlow{position:absolute; inset:0; pointer-events:none; mask-image:radial-gradient(60% 60% at 50% 0%, #000 40%, transparent 100%)}
+    .heroGlow:before{
+      content:""; position:absolute; left:50%; top:-110px; width:1200px; height:260px; transform:translateX(-50%); filter:blur(48px);
       background:
         radial-gradient(80% 80% at 30% 50%, color-mix(in oklab, var(--nbm-secondary) 22%, transparent), transparent 60%),
         radial-gradient(80% 80% at 70% 50%, color-mix(in oklab, var(--nbm-primary) 28%, transparent), transparent 60%);
@@ -40,19 +43,24 @@
 
     /* left */
     .brandRow{display:flex; align-items:center; gap:12px; margin-bottom:12px}
-    .brandRow img{height:44px; width:auto; filter:hue-rotate(0deg); transition:filter .8s ease}
-    .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid color-mix(in oklab, var(--nbm-primary) 30%, transparent); background: color-mix(in oklab, var(--nbm-primary) 8%, transparent); font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color: color-mix(in oklab, var(--nbm-primary) 85%, black)}
+    .brandRow img{height:44px; width:auto}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
+      border:1px solid color-mix(in oklab, var(--nbm-primary) 30%, transparent);
+      background: color-mix(in oklab, var(--nbm-primary) 8%, transparent);
+      font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+      color: color-mix(in oklab, var(--nbm-primary) 85%, black);
+    }
     h1{font-size:clamp(28px,3vw,40px); line-height:1.05; margin:8px 0 0}
     p.lede{margin:16px 0 0; max-width:62ch; font-size:16px; line-height:1.6}
     ul.perks{margin:18px 0 0; padding:0; list-style:none}
-    ul.perks li{display:flex; gap:12px; align-items:flex-start; margin:10px 0; opacity:0; transform:translateY(10px); transition:opacity .5s ease, transform .5s ease}
-    ul.perks li.in{opacity:1; transform:none}
-    .tick{flex:0 0 auto; width:22px; height:22px; border-radius:999px; background:var(--nbm-primary); color:white; display:inline-flex; align-items:center; justify-content:center; font-weight:800; box-shadow:0 6px 14px color-mix(in oklab, var(--nbm-primary) 35%, transparent)}
+    ul.perks li{display:flex; gap:12px; align-items:flex-start; margin:10px 0}
+    .tick{flex:0 0 auto; width:22px; height:22px; border-radius:999px; background:var(--nbm-primary); color:white; display:inline-flex; align-items:center; justify-content:center; font-weight:800}
 
     .ctaRow{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:18px}
     .btn{appearance:none; border:1px solid transparent; border-radius:16px; padding:12px 18px; font-weight:700; font-size:14px; cursor:pointer; transition:.25s ease, transform .25s ease}
-    .btnPrimary{background:var(--nbm-bright); color:var(--nbm-deep); border-color:color-mix(in oklab, var(--nbm-deep) 20%, transparent); box-shadow:0 10px 24px color-mix(in oklab, var(--nbm-bright) 45%, transparent)}
-    .btnPrimary:hover{filter:saturate(1.05); transform:translateY(-1px)}
+    .btnPrimary{background:var(--nbm-secondary); color:var(--nbm-deep); border-color:var(--nbm-secondary); box-shadow:0 10px 24px color-mix(in oklab, var(--nbm-secondary) 35%, transparent)}
+    .btnPrimary:hover{transform:translateY(-1px)}
     .hint{font-size:12px; color:#71717a}
 
     .collapser{display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease}
@@ -63,20 +71,16 @@
     /* right */
     .media{position:relative; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:var(--radius); box-shadow:0 8px 18px rgba(0,0,0,.05); padding:14px}
     .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
-    .tile{border-radius:14px; overflow:hidden; background:#eef2f7; aspect-ratio:4/5; position:relative; isolation:isolate; transform:translateY(8px); opacity:.0; transition:transform .6s ease, opacity .6s ease, filter .35s ease}
+    .tile{border-radius:14px; overflow:hidden; background:#eef2f7; aspect-ratio:4/5; position:relative; isolation:isolate; transform:translateY(8px); opacity:0; transition:transform .6s ease, opacity .6s ease}
     .tile.in{transform:none; opacity:1}
     .tile.square{aspect-ratio:1/1}
     .tile img{width:100%; height:100%; object-fit:cover; display:block; filter:none; transition:transform .35s ease}
-    .tile:after{display:none}
-    .tile:hover img{transform:scale(1.02)}
-    .tile:hover:after{opacity:.65}
-    .mediaHint{margin-top:8px; text-align:center; font-size:12px; color:#71717a}
+    .tile:hover img{transform:scale(1.02)} /* subtle zoom, NO color overlay */
 
     .status{margin-top:16px; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:16px; padding:16px; font-size:14px; color:#3f3f46}
     .dot{width:8px; height:8px; border-radius:999px; background:var(--nbm-primary); display:inline-block; margin-right:8px; animation:pulse 1.5s ease-in-out infinite}
     @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
 
-    /* footer note */
     .foot{padding:10px 32px 24px; font-size:12px; color:#71717a}
   </style>
 </head>
@@ -93,10 +97,10 @@
             <span class="badge">Beach Bums · Members</span>
           </div>
           <h1>Beach Bums Members — Coming Soon</h1>
-          <p class="lede">The only members club made for <strong>nude beach lovers</strong>. Expect premium content, hand‑picked discounts, deep‑dive guides, and a friendly forum to swap tips and trip ideas. Join the list to snag a <strong>founding spot</strong> the moment we open.</p>
+          <p class="lede">The only members club made for <strong>nude beach lovers</strong>. Expect premium content, hand-picked discounts, deep-dive guides, and a friendly forum to swap tips and trip ideas. Join the list to snag a <strong>founding spot</strong> the moment we open.</p>
 
           <ul class="perks" id="perkList">
-            <li><span class="tick">✓</span><span>Members‑only beach guides & tools</span></li>
+            <li><span class="tick">✓</span><span>Members-only beach guides & tools</span></li>
             <li><span class="tick">✓</span><span>Exclusive resort & gear discounts</span></li>
             <li><span class="tick">✓</span><span>Private forums (no spam, be kind)</span></li>
             <li><span class="tick">✓</span><span>Early access to videos & premieres</span></li>
@@ -118,11 +122,11 @@
           <p class="hint" style="margin-top:10px">We respect your inbox. Unsubscribe anytime.</p>
         </div>
 
-        <!-- RIGHT: visuals (auto from assets) -->
+        <!-- RIGHT: visuals -->
         <div>
           <div class="media">
             <div class="tiles" id="tiles"></div>
-            
+            <!-- (no media hint text) -->
           </div>
 
           <div class="status">
@@ -169,14 +173,14 @@
             loaded = true;
             btn.textContent = 'Hide sign-up';
           }).catch(function(){
-            mount.innerHTML = '<div style="border:1px solid #fecaca;background:#fee2e2;color:#b91c1c;padding:12px;border-radius:12px">Signup form failed to load. Email <a href="mailto:matt@nudebeachmap.com?subject=Founding%20Members%20Access" style="text-decoration:underline">matt@nudebeachmap.com</a> and we\'ll add you manually.</div>';
+            mount.innerHTML = '<div style="border:1px solid #fecaca;background:#fee2e2;color:#b91c1c;padding:12px;border-radius:12px">Signup form failed to load. Email <a href="mailto:matt@nudebeachmap.com?subject=Founding%20Members%20Access" style="text-decoration:underline">matt@nudebeachmap.com</a> and we\\'ll add you manually.</div>';
           });
         } else {
           btn.textContent = wrap.classList.contains('open') ? 'Hide sign-up' : 'Get on the list';
         }
       });
 
-      // Build tile grid from your four images; fill 6 spots gracefully
+      // Build tile grid from your six files
       const files = [
         'NBM Mem1.jpeg',
         'NBM Mem2.jpeg',
@@ -186,7 +190,7 @@
         'NBM Mem6.png'
       ];
       const tiles = document.getElementById('tiles');
-      const order = [0,1,2,3,4,5]; // show all six uniquely // uses 4, repeats nicely to 6
+      const order = [0,1,2,3,4,5]; // show all six
       order.forEach(function(idx, i){
         const d = document.createElement('div');
         d.className = 'tile'+(i%2===1?' square':'');
@@ -198,29 +202,20 @@
         tiles.appendChild(d);
       });
 
-      // Intersection reveals for tiles and perk bullets
+      // Intersection reveal for tiles
       const io = new IntersectionObserver((entries)=>{
-        entries.forEach((e)=>{
-          if(e.isIntersecting){ e.target.classList.add('in'); }
-        });
+        entries.forEach((e)=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
       }, {threshold:.2});
-      document.querySelectorAll('.tile, .perks li').forEach((el)=> io.observe(el));
+      document.querySelectorAll('.tile').forEach((el)=> io.observe(el));
 
-      // Scroll-based hue shift and progress bar
+      // Scroll progress bar
       const bar = document.getElementById('scrollbar');
-      const logo = document.getElementById('nbmLogo');
       function onScroll(){
         const h = document.documentElement; const sc = h.scrollTop; const max = h.scrollHeight - h.clientHeight; const p = max>0 ? sc/max : 0;
         bar.style.width = (p*100)+'%';
-      }) contrast(${1.02+0.03*p}) hue-rotate(${deg}deg)`; });
-        logo.style.filter = `hue-rotate(${deg}deg)`;
       }
       document.addEventListener('scroll', onScroll, {passive:true});
       onScroll();
-
-      // Stagger perk bullet reveals a bit
-      const perks = Array.from(document.querySelectorAll('#perkList li'));
-      perks.forEach((li, i)=> setTimeout(()=> li.classList.add('in'), 150 + i*90));
     })();
   </script>
 </body>
