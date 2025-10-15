@@ -1,144 +1,187 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Beach Bums Members — Coming Soon | Nude Beach Map</title>
-  <meta name="description" content="Beach Bums — the Nude Beach Map members club. Premium content, discounts, deep-dive guides, and friendly forums. Founding spots opening soon." />
-  <link rel="preconnect" href="https://js.hsforms.net">
-  <style>
-    :root{
-      --nbm-primary:#0cbab4;  /* teal */
-      --nbm-secondary:#e49d25;/* orange (CTA) */
-      --nbm-accent:#f8c014;   /* sunshine */
-      --nbm-ink:#343537;      /* charcoal */
-      --nbm-deep:#26150e;     /* deep accent */
-      --nbm-bright:#fff200;   /* bright yellow */
-      --nbm-paper:#ffffff;    /* white */
-      --radius:24px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
-      color:var(--nbm-ink);
-      background:linear-gradient(180deg,#f9fafb,#ffffff);
-    }
-    .wrap{max-width:1120px; padding:48px 20px; margin:0 auto}
+import { useEffect, useRef, useState } from "react";
 
-    /* top scroll progress */
-    .scrollbar{position:fixed; top:0; left:0; height:4px; width:0; background:linear-gradient(90deg,var(--nbm-primary),var(--nbm-accent)); z-index:50; box-shadow:0 0 10px rgba(0,0,0,.15)}
+/**
+ * MembersTeaser (Holding Page)
+ * A clean "Coming Soon" hero that teases Beach Bums membership and collects emails.
+ * - Tailwind only; follows your site's typography/colors
+ * - Lazy‑loads HubSpot when the panel opens (client‑side safe)
+ */
+export default function MembersTeaser({
+  logoSrc = "/nbm-logo.svg",
+  brand = {
+    primary: "#0cbab4", // teal (color2)
+    secondary: "#e49d25", // sand/orange (color4)
+    accent: "#f8c014", // sunshine (color3)
+    ink: "#343537", // charcoal (color5)
+    paper: "#ffffff", // white
+  },
+}: {
+  logoSrc?: string;
+  brand?: { primary: string; secondary: string; accent: string; ink: string; paper: string };
+}) {
+  const [open, setOpen] = useState(false);
+  const [formLoaded, setFormLoaded] = useState(false);
+  const mountRef = useRef(null);
 
-    .card{position:relative; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:var(--radius); box-shadow:0 10px 24px rgba(0,0,0,.06); overflow:hidden}
-    .heroGlow{position:absolute; inset:0; pointer-events:none; mask-image:radial-gradient(60% 60% at 50% 0%, #000 40%, transparent 100%)}
-    .heroGlow:before{
-      content:""; position:absolute; left:50%; top:-110px; width:1200px; height:260px; transform:translateX(-50%); filter:blur(48px);
-      background:
-        radial-gradient(80% 80% at 30% 50%, color-mix(in oklab, var(--nbm-secondary) 22%, transparent), transparent 60%),
-        radial-gradient(80% 80% at 70% 50%, color-mix(in oklab, var(--nbm-primary) 28%, transparent), transparent 60%);
-      opacity:.9;
-    }
-    .grid{display:grid; gap:32px; grid-template-columns:1fr; padding:32px}
-    @media (min-width:992px){ .grid{grid-template-columns: 1fr 1fr;} }
+  useEffect(() => {
+    if (!open || formLoaded) return;
 
-    /* left */
-    .brandRow{display:flex; align-items:center; gap:12px; margin-bottom:12px}
-    .brandRow img{height:44px; width:auto}
-    .badge{
-      display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
-      border:1px solid color-mix(in oklab, var(--nbm-primary) 30%, transparent);
-      background: color-mix(in oklab, var(--nbm-primary) 8%, transparent);
-      font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
-      color: color-mix(in oklab, var(--nbm-primary) 85%, black);
-    }
-    h1{font-size:clamp(28px,3vw,40px); line-height:1.05; margin:8px 0 0}
-    p.lede{margin:16px 0 0; max-width:62ch; font-size:16px; line-height:1.6}
-    ul.perks{margin:18px 0 0; padding:0; list-style:none}
-    ul.perks li{display:flex; gap:12px; align-items:flex-start; margin:10px 0}
-    .tick{flex:0 0 auto; width:22px; height:22px; border-radius:999px; background:var(--nbm-primary); color:white; display:inline-flex; align-items:center; justify-content:center; font-weight:800}
+    const ensureHs = () =>
+      new Promise((resolve, reject) => {
+        if ((window as any).hbspt?.forms) return resolve(undefined);
+        const existing = document.querySelector('script[src*="js.hsforms.net/forms/embed/v2.js"]') as HTMLScriptElement | null;
+        if (existing) {
+          existing.addEventListener("load", () => resolve(undefined));
+          existing.addEventListener("error", reject);
+          return;
+        }
+        const s = document.createElement("script");
+        s.src = "//js.hsforms.net/forms/embed/v2.js";
+        s.async = true;
+        s.onload = () => resolve(undefined);
+        s.onerror = reject as any;
+        document.body.appendChild(s);
+      });
 
-    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:18px}
-    .btn{appearance:none; border:1px solid transparent; border-radius:16px; padding:12px 18px; font-weight:700; font-size:14px; cursor:pointer; transition:.25s ease, transform .25s ease}
-    .btnPrimary{background:var(--nbm-secondary); color:var(--nbm-deep); border-color:var(--nbm-secondary); box-shadow:0 10px 24px color-mix(in oklab, var(--nbm-secondary) 35%, transparent)}
-    .btnPrimary:hover{transform:translateY(-1px)}
-    .hint{font-size:12px; color:#71717a}
+    ensureHs()
+      .then(() => {
+        if (!mountRef.current || !(window as any).hbspt?.forms?.create) return;
+        (window as any).hbspt.forms.create({
+          portalId: "45610755",
+          formId: "d20eb539-32e0-438a-bc4e-a6a2fd80d6c1",
+          region: "na1",
+          target: mountRef.current,
+        });
+        setFormLoaded(true);
+      })
+      .catch(() => {
+        if (mountRef.current) {
+          (mountRef.current as HTMLElement).innerHTML = `
+            <div class="rounded-xl border border-red-200 bg-red-50 p-4 text-red-700">
+              <p><strong>Signup form didn't load.</strong></p>
+              <p>Email <a class="underline" href="mailto:matt@nudebeachmap.com?subject=Founding%20Members%20Access">matt@nudebeachmap.com</a> and we'll add you manually.</p>
+            </div>
+          `;
+        }
+      });
+  }, [open, formLoaded]);
 
-    .collapser{display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease}
-    .collapser.open{grid-template-rows:1fr}
-    .collapseInner{overflow:hidden}
-    .formMount{margin-top:16px; border:1px solid color-mix(in oklab, var(--nbm-primary) 25%, #d4d4d8); background:var(--nbm-paper); border-radius:16px; padding:16px; box-shadow:0 6px 16px rgba(0,0,0,.05)}
+  return (
+    <section
+      className="relative isolate overflow-hidden rounded-3xl border border-zinc-200/60 bg-white shadow-sm dark:border-zinc-800/60 dark:bg-zinc-900"
+      style={{
+        // expose brand palette to Tailwind arbitrary var classes
+        // @ts-ignore - CSS variables allowed inline
+        "--nbm-primary": brand.primary,
+        "--nbm-secondary": brand.secondary,
+        "--nbm-accent": brand.accent,
+        "--nbm-ink": brand.ink,
+        "--nbm-paper": brand.paper,
+        "--nbm-deep": "#26150e", // deep accent (color1)
+        "--nbm-bright": "#fff200", // bright yellow (color6)
+      } as React.CSSProperties}
+    >
+      {/* Brand gradient wash using brand colors */}
+      <div className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(60%_60%_at_50%_0%,#000_40%,transparent_100%)]">
+        <div className="absolute -top-24 left-1/2 h-64 w-[80rem] -translate-x-1/2 rounded-full blur-3xl bg-[radial-gradient(80%_80%_at_30%_50%,var(--nbm-secondary)/.22,transparent),radial-gradient(80%_80%_at_70%_50%,var(--nbm-primary)/.28,transparent)]" />
+      </div>
 
-    /* right */
-    .media{position:relative; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:var(--radius); box-shadow:0 8px 18px rgba(0,0,0,.05); padding:14px}
-    .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
-    .tile{border-radius:14px; overflow:hidden; background:#eef2f7; aspect-ratio:4/5; position:relative; isolation:isolate; transform:translateY(8px); opacity:0; transition:transform .6s ease, opacity .6s ease}
-    .tile.in{transform:none; opacity:1}
-    .tile.square{aspect-ratio:1/1}
-    .tile img{width:100%; height:100%; object-fit:cover; display:block; filter:none; transition:transform .35s ease}
-    .tile:hover img{transform:scale(1.02)} /* subtle zoom, NO color overlay */
-
-    .status{margin-top:16px; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:16px; padding:16px; font-size:14px; color:#3f3f46}
-    .dot{width:8px; height:8px; border-radius:999px; background:var(--nbm-primary); display:inline-block; margin-right:8px; animation:pulse 1.5s ease-in-out infinite}
-    @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
-
-    .foot{padding:10px 32px 24px; font-size:12px; color:#71717a}
-  </style>
-</head>
-<body>
-  <div class="scrollbar" id="scrollbar"></div>
-  <main class="wrap">
-    <section class="card">
-      <div class="heroGlow" aria-hidden="true"></div>
-      <div class="grid">
-        <!-- LEFT: copy -->
-        <div>
-          <div class="brandRow">
-            <img src="assets/nbm-logo.gif" alt="Nude Beach Map" id="nbmLogo" />
-            <span class="badge">Beach Bums · Members</span>
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-6 py-16 lg:grid-cols-12 lg:gap-12 lg:px-10">
+        {/* Left: Copy */}
+        <div className="lg:col-span-7 xl:col-span-6">
+          {/* Logo + badge */}
+          <div className="mb-5 flex items-center gap-3">
+            <img src={logoSrc} alt="Nude Beach Map logo" className="h-9 w-auto" />
+            <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide"
+              style={{
+                borderColor: "color-mix(in oklab, var(--nbm-primary) 30%, #0000)",
+                background: "color-mix(in oklab, var(--nbm-primary) 8%, transparent)",
+                color: "color-mix(in oklab, var(--nbm-primary) 85%, black)",
+              }}
+            >
+              Beach Bums · Members
+            </span>
           </div>
-          <h1>Beach Bums Members — Coming Soon</h1>
-          <p class="lede">The only members club made for <strong>nude beach lovers</strong>. Expect premium content, hand-picked discounts, deep-dive guides, and a friendly forum to swap tips and trip ideas. Join the list to snag a <strong>founding spot</strong> the moment we open.</p>
 
-          <ul class="perks" id="perkList">
-            <li><span class="tick">✓</span><span>Members-only beach guides & tools</span></li>
-            <li><span class="tick">✓</span><span>Exclusive resort & gear discounts</span></li>
-            <li><span class="tick">✓</span><span>Private forums (no spam, be kind)</span></li>
-            <li><span class="tick">✓</span><span>Early access to videos & premieres</span></li>
-            <li><span class="tick">✓</span><span>Priority invites to Nude Beach Trips</span></li>
+          <h1 className="text-pretty text-3xl font-black leading-tight tracking-tight sm:text-4xl" style={{color: "var(--nbm-ink)"}}>
+            Beach Bums Members <span className="opacity-40">—</span> Coming Soon
+          </h1>
+
+          <p className="mt-4 max-w-prose text-base/7 text-zinc-700 dark:text-zinc-300">
+            The only members club made for <strong>nude beach lovers</strong>. Expect premium
+            content, hand‑picked discounts, deep‑dive guides, and a friendly forum to swap tips
+            and trip ideas. Join the list to snag a <strong>founding spot</strong> the moment we open.
+          </p>
+
+          <ul className="mt-6 space-y-3 text-zinc-700 dark:text-zinc-300">
+            {[
+              "Members‑only beach guides & tools",
+              "Exclusive resort & gear discounts",
+              "Private forums (no spam, be kind)",
+              "Early access to videos & premieres",
+              "Priority invites to Nude Beach Trips",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3">
+                <span className="mt-1 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full text-white"
+                  style={{ background: "var(--nbm-primary)" }}
+                  aria-hidden
+                >
+                  ✓
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
           </ul>
 
-          <div class="ctaRow">
-            <button id="toggleForm" class="btn btnPrimary">Get on the list</button>
-            <span class="hint">Founding spots will be limited</span>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className="inline-flex items-center justify-center rounded-2xl border px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 focus:outline-none focus:ring-2"
+              style={{ background: "var(--nbm-primary)", borderColor: "var(--nbm-primary)" }}
+            >
+              {open ? "Hide sign‑up" : "Get on the list"}
+            </button>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">Founding spots will be limited</span>
           </div>
 
-          <!-- collapsible HubSpot form -->
-          <div id="collapser" class="collapser" aria-live="polite">
-            <div class="collapseInner">
-              <div id="formMount" class="formMount"></div>
+          {/* Collapsible form */}
+          <div className={`transition-[grid-template-rows] duration-500 ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"} grid`}>
+            <div className="overflow-hidden">
+              <div ref={mountRef} className="mt-6 rounded-2xl border p-4 shadow-sm"
+                style={{ borderColor: "color-mix(in oklab, var(--nbm-primary) 25%, #d4d4d8)", background: "var(--nbm-paper)" }}
+              />
             </div>
           </div>
 
-          <p class="hint" style="margin-top:10px">We respect your inbox. Unsubscribe anytime.</p>
+          <p className="mt-3 text-xs text-zinc-500 dark:text-zinc-400">We respect your inbox. Unsubscribe anytime.</p>
         </div>
 
-        <!-- RIGHT: visuals -->
-        <div>
-          <div class="media">
-            <div class="tiles">
-              <div class="tile"><img src="assets/NBM Mem1.jpeg" alt="Preview 1" loading="lazy"></div>
-              <div class="tile square"><img src="assets/NBM Mem2.jpeg" alt="Preview 2" loading="lazy"></div>
-              <div class="tile"><img src="assets/NBM Mem3.jpeg" alt="Preview 3" loading="lazy"></div>
-              <div class="tile square"><img src="assets/NBM Mem4.jpeg" alt="Preview 4" loading="lazy"></div>
-              <div class="tile"><img src="assets/NBM Mem5.png" alt="Preview 5" loading="lazy"></div>
-              <div class="tile square"><img src="assets/NBM Mem6.png" alt="Preview 6" loading="lazy"></div>
+        {/* Right: Visual Tease */}
+        <div className="lg:col-span-5 xl:col-span-6">
+          <div className="relative isolate rounded-3xl border p-4 shadow-sm" style={{ borderColor: "#e5e7eb", background: "var(--nbm-paper)" }}>
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
+              {/* Tiles tinted with brand colors */}
+              <div className="aspect-[4/5] overflow-hidden rounded-xl opacity-90 bg-[linear-gradient(135deg,var(--nbm-secondary),_color-mix(in_oklab,var(--nbm-accent)_85%,_white))]" />
+              <div className="aspect-square overflow-hidden rounded-xl opacity-90 bg-[linear-gradient(135deg,var(--nbm-primary),_color-mix(in_oklab,var(--nbm-secondary)_85%,_white))]" />
+              <div className="aspect-[4/5] overflow-hidden rounded-xl opacity-90 bg-[linear-gradient(135deg,var(--nbm-accent),_color-mix(in_oklab,var(--nbm-primary)_85%,_white))]" />
+              <div className="aspect-square overflow-hidden rounded-xl opacity-90 bg-[linear-gradient(135deg,var(--nbm-primary),_var(--nbm-accent))]" />
+              <div className="aspect-[4/5] overflow-hidden rounded-xl opacity-90 bg-[linear-gradient(135deg,var(--nbm-secondary),_var(--nbm-primary))]" />
+              <div className="aspect-square overflow-hidden rounded-xl opacity-90 bg-[linear-gradient(135deg,var(--nbm-accent),_var(--nbm-secondary))]" />
             </div>
-            <!-- (no hint text) -->
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-6 px-4">
+              <div className="mx-auto h-24 max-w-xl rounded-full blur-2xl bg-[radial-gradient(60%_60%_at_50%_50%,var(--nbm-primary)/.38,transparent)]" />
+            </div>
+            <div className="mt-3 text-center text-xs text-zinc-500 dark:text-zinc-400">Sneak peek · Guides · Forums · Discounts</div>
           </div>
 
-          <div class="status">
-            <span class="dot"></span><strong>Status:</strong> In final polish. Launching soon.
-            <ul style="margin:8px 0 0 18px; padding:0;">
+          {/* Timeline/Status */}
+          <div className="mt-6 rounded-2xl border p-4 text-sm shadow-sm dark:text-zinc-300" style={{ borderColor: "#e5e7eb", background: "var(--nbm-paper)", color: "#3f3f46" }}>
+            <div className="flex items-center gap-2">
+              <span className="inline-flex h-2 w-2 animate-pulse rounded-full" style={{ background: "var(--nbm-primary)" }} />
+              <strong>Status:</strong> In final polish. Launching soon.
+            </div>
+            <ul className="mt-3 list-inside list-disc space-y-1">
               <li>Founding perks locked</li>
               <li>Forum & guides in QA</li>
               <li>Discount partners onboarding</li>
@@ -146,62 +189,6 @@
           </div>
         </div>
       </div>
-      <div class="foot">© Nude Beach Map</div>
     </section>
-  </main>
-
-  <script>
-    (function(){
-      // HubSpot toggle + lazy load
-      const btn = document.getElementById('toggleForm');
-      const wrap = document.getElementById('collapser');
-      const mount = document.getElementById('formMount');
-      let loaded = false;
-      function ensureHs(){
-        return new Promise(function(resolve, reject){
-          if (window.hbspt && window.hbspt.forms) return resolve();
-          var existing = document.querySelector('script[src*="js.hsforms.net/forms/embed/v2.js"]');
-          if (existing){ existing.addEventListener('load', resolve); existing.addEventListener('error', reject); return; }
-          var s = document.createElement('script');
-          s.src='//js.hsforms.net/forms/embed/v2.js'; s.async = true; s.onload = resolve; s.onerror = reject; document.body.appendChild(s);
-        });
-      }
-      btn.addEventListener('click', function(){
-        wrap.classList.toggle('open');
-        if (!loaded){
-          ensureHs().then(function(){
-            if (!window.hbspt || !window.hbspt.forms || !mount) return;
-            window.hbspt.forms.create({
-              portalId: '45610755',
-              formId: 'd20eb539-32e0-438a-bc4e-a6a2fd80d6c1',
-              region: 'na1',
-              target: '#formMount'
-            });
-            loaded = true;
-            btn.textContent = 'Hide sign-up';
-          }).catch(function(){
-            mount.innerHTML = '<div style="border:1px solid #fecaca;background:#fee2e2;color:#b91c1c;padding:12px;border-radius:12px">Signup form failed to load. Email <a href="mailto:matt@nudebeachmap.com?subject=Founding%20Members%20Access" style="text-decoration:underline">matt@nudebeachmap.com</a> and we\\'ll add you manually.</div>';
-          });
-        } else {
-          btn.textContent = wrap.classList.contains('open') ? 'Hide sign-up' : 'Get on the list';
-        }
-      });
-
-      // Intersection reveal for tiles
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach((e)=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
-      }, {threshold:.2});
-      document.querySelectorAll('.tile').forEach((el)=> io.observe(el));
-
-      // Scroll progress bar
-      const bar = document.getElementById('scrollbar');
-      function onScroll(){
-        const h = document.documentElement; const sc = h.scrollTop; const max = h.scrollHeight - h.clientHeight; const p = max>0 ? sc/max : 0;
-        bar.style.width = (p*100)+'%';
-      }
-      document.addEventListener('scroll', onScroll, {passive:true});
-      onScroll();
-    })();
-  </script>
-</body>
-</html>
+  );
+}
