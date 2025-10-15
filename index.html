@@ -181,10 +181,12 @@
         'NBM Mem1.jpeg',
         'NBM Mem2.jpeg',
         'NBM Mem3.jpeg',
-        'NBM Mem4.jpeg'
+        'NBM Mem4.jpeg',
+        'mem5.png',
+        'mem6.png'
       ];
       const tiles = document.getElementById('tiles');
-      const order = [0,1,2,3,1,2]; // uses 4, repeats nicely to 6
+      const order = [0,1,2,3,4,5]; // show all six uniquely // uses 4, repeats nicely to 6
       order.forEach(function(idx, i){
         const d = document.createElement('div');
         d.className = 'tile'+(i%2===1?' square':'');
