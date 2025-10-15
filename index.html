@@ -23,6 +23,10 @@
       background: linear-gradient(180deg,#f9fafb, #ffffff);
     }
     .wrap{max-width:1120px; padding:48px 20px; margin:0 auto}
+
+    /* header progress accent */
+    .scrollbar{position:fixed; top:0; left:0; height:4px; width:0; background:linear-gradient(90deg,var(--nbm-primary),var(--nbm-accent)); z-index:50; box-shadow:0 0 10px rgba(0,0,0,.15)}
+
     .card{position:relative; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:var(--radius); box-shadow:0 10px 24px rgba(0,0,0,.06); overflow:hidden}
     .heroGlow{position:absolute; inset:0; pointer-events:none; mask-image: radial-gradient(60% 60% at 50% 0%, #000 40%, transparent 100%);}
     .heroGlow:before{content:""; position:absolute; left:50%; top:-110px; width:1200px; height:260px; transform:translateX(-50%); filter: blur(48px);
@@ -36,18 +40,19 @@
 
     /* left */
     .brandRow{display:flex; align-items:center; gap:12px; margin-bottom:12px}
-    .brandRow img{height:40px; width:auto}
+    .brandRow img{height:44px; width:auto; filter:hue-rotate(0deg); transition:filter .8s ease}
     .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid color-mix(in oklab, var(--nbm-primary) 30%, transparent); background: color-mix(in oklab, var(--nbm-primary) 8%, transparent); font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color: color-mix(in oklab, var(--nbm-primary) 85%, black)}
     h1{font-size:clamp(28px,3vw,40px); line-height:1.05; margin:8px 0 0}
     p.lede{margin:16px 0 0; max-width:62ch; font-size:16px; line-height:1.6}
     ul.perks{margin:18px 0 0; padding:0; list-style:none}
-    ul.perks li{display:flex; gap:12px; align-items:flex-start; margin:10px 0}
-    .tick{flex:0 0 auto; width:22px; height:22px; border-radius:999px; background:var(--nbm-primary); color:white; display:inline-flex; align-items:center; justify-content:center; font-weight:800}
+    ul.perks li{display:flex; gap:12px; align-items:flex-start; margin:10px 0; opacity:0; transform:translateY(10px); transition:opacity .5s ease, transform .5s ease}
+    ul.perks li.in{opacity:1; transform:none}
+    .tick{flex:0 0 auto; width:22px; height:22px; border-radius:999px; background:var(--nbm-primary); color:white; display:inline-flex; align-items:center; justify-content:center; font-weight:800; box-shadow:0 6px 14px color-mix(in oklab, var(--nbm-primary) 35%, transparent)}
 
     .ctaRow{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:18px}
-    .btn{appearance:none; border:1px solid transparent; border-radius:16px; padding:12px 18px; font-weight:700; font-size:14px; cursor:pointer; transition:.2s ease}
-    .btnPrimary{background:var(--nbm-primary); color:white}
-    .btnPrimary:hover{opacity:.92}
+    .btn{appearance:none; border:1px solid transparent; border-radius:16px; padding:12px 18px; font-weight:700; font-size:14px; cursor:pointer; transition:.25s ease, transform .25s ease}
+    .btnPrimary{background:var(--nbm-primary); color:white; box-shadow:0 10px 24px color-mix(in oklab, var(--nbm-primary) 30%, transparent)}
+    .btnPrimary:hover{opacity:.96; transform:translateY(-1px)}
     .hint{font-size:12px; color:#71717a}
 
     .collapser{display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease}
@@ -58,9 +63,13 @@
     /* right */
     .media{position:relative; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:var(--radius); box-shadow:0 8px 18px rgba(0,0,0,.05); padding:14px}
     .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
-    .tile{border-radius:14px; overflow:hidden; background:#eef2f7; aspect-ratio:4/5}
+    .tile{border-radius:14px; overflow:hidden; background:#eef2f7; aspect-ratio:4/5; position:relative; isolation:isolate; transform:translateY(8px); opacity:.0; transition:transform .6s ease, opacity .6s ease, filter .35s ease}
+    .tile.in{transform:none; opacity:1}
     .tile.square{aspect-ratio:1/1}
-    .tile img{width:100%; height:100%; object-fit:cover; display:block}
+    .tile img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.9) contrast(1.02) hue-rotate(0deg); transition:filter .4s ease, transform .35s ease}
+    .tile:after{content:""; position:absolute; inset:0; mix-blend:multiply; background: radial-gradient(120% 120% at 80% 20%, color-mix(in oklab, var(--nbm-primary) 25%, transparent), transparent 60%); opacity:.0; transition:opacity .35s ease}
+    .tile:hover img{transform:scale(1.03); filter:saturate(1.1) contrast(1.05) hue-rotate(10deg)}
+    .tile:hover:after{opacity:.65}
     .mediaHint{margin-top:8px; text-align:center; font-size:12px; color:#71717a}
 
     .status{margin-top:16px; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:16px; padding:16px; font-size:14px; color:#3f3f46}
@@ -72,6 +81,7 @@
   </style>
 </head>
 <body>
+  <div class="scrollbar" id="scrollbar"></div>
   <main class="wrap">
     <section class="card">
       <div class="heroGlow" aria-hidden="true"></div>
@@ -79,13 +89,13 @@
         <!-- LEFT: copy -->
         <div>
           <div class="brandRow">
-            <img src="assets/nbm-logo.svg" alt="Nude Beach Map" />
+            <img src="assets/nbm-logo.gif" alt="Nude Beach Map" id="nbmLogo" />
             <span class="badge">Beach Bums · Members</span>
           </div>
           <h1>Beach Bums Members — Coming Soon</h1>
           <p class="lede">The only members club made for <strong>nude beach lovers</strong>. Expect premium content, hand‑picked discounts, deep‑dive guides, and a friendly forum to swap tips and trip ideas. Join the list to snag a <strong>founding spot</strong> the moment we open.</p>
 
-          <ul class="perks">
+          <ul class="perks" id="perkList">
             <li><span class="tick">✓</span><span>Members‑only beach guides & tools</span></li>
             <li><span class="tick">✓</span><span>Exclusive resort & gear discounts</span></li>
             <li><span class="tick">✓</span><span>Private forums (no spam, be kind)</span></li>
@@ -108,18 +118,11 @@
           <p class="hint" style="margin-top:10px">We respect your inbox. Unsubscribe anytime.</p>
         </div>
 
-        <!-- RIGHT: visuals -->
+        <!-- RIGHT: visuals (auto from assets) -->
         <div>
           <div class="media">
-            <div class="tiles">
-              <div class="tile"><img src="assets/tile-portrait-01.jpg" alt="Preview 1" loading="lazy"></div>
-              <div class="tile square"><img src="assets/tile-square-01.jpg" alt="Preview 2" loading="lazy"></div>
-              <div class="tile"><img src="assets/tile-portrait-02.jpg" alt="Preview 3" loading="lazy"></div>
-              <div class="tile square"><img src="assets/tile-square-02.jpg" alt="Preview 4" loading="lazy"></div>
-              <div class="tile"><img src="assets/tile-portrait-03.jpg" alt="Preview 5" loading="lazy"></div>
-              <div class="tile square"><img src="assets/tile-square-03.jpg" alt="Preview 6" loading="lazy"></div>
-            </div>
-            <div class="mediaHint">Sneak peek · Guides · Forums · Discounts</div>
+            <div class="tiles" id="tiles"></div>
+            <div class="mediaHint">Hover for color · Scroll for reveal</div>
           </div>
 
           <div class="status">
@@ -138,6 +141,7 @@
 
   <script>
     (function(){
+      // HubSpot toggle + lazy load
       const btn = document.getElementById('toggleForm');
       const wrap = document.getElementById('collapser');
       const mount = document.getElementById('formMount');
@@ -171,6 +175,51 @@
           btn.textContent = wrap.classList.contains('open') ? 'Hide sign-up' : 'Get on the list';
         }
       });
+
+      // Build tile grid from your four images; fill 6 spots gracefully
+      const files = [
+        'NBM Mem1.jpeg',
+        'NBM Mem2.jpeg',
+        'NBM Mem3.jpeg',
+        'NBM Mem4.jpeg'
+      ];
+      const tiles = document.getElementById('tiles');
+      const order = [0,1,2,3,1,2]; // uses 4, repeats nicely to 6
+      order.forEach(function(idx, i){
+        const d = document.createElement('div');
+        d.className = 'tile'+(i%2===1?' square':'');
+        const img = document.createElement('img');
+        img.src = 'assets/'+files[idx];
+        img.alt = 'Preview '+(i+1);
+        img.loading = 'lazy';
+        d.appendChild(img);
+        tiles.appendChild(d);
+      });
+
+      // Intersection reveals for tiles and perk bullets
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach((e)=>{
+          if(e.isIntersecting){ e.target.classList.add('in'); }
+        });
+      }, {threshold:.2});
+      document.querySelectorAll('.tile, .perks li').forEach((el)=> io.observe(el));
+
+      // Scroll-based hue shift and progress bar
+      const bar = document.getElementById('scrollbar');
+      const logo = document.getElementById('nbmLogo');
+      function onScroll(){
+        const h = document.documentElement; const sc = h.scrollTop; const max = h.scrollHeight - h.clientHeight; const p = max>0 ? sc/max : 0;
+        bar.style.width = (p*100)+'%';
+        const deg = Math.round(p*20); // subtle
+        document.querySelectorAll('.tile img').forEach((im)=>{ im.style.filter = `saturate(${0.9+0.2*p}) contrast(${1.02+0.03*p}) hue-rotate(${deg}deg)`; });
+        logo.style.filter = `hue-rotate(${deg}deg)`;
+      }
+      document.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+
+      // Stagger perk bullet reveals a bit
+      const perks = Array.from(document.querySelectorAll('#perkList li'));
+      perks.forEach((li, i)=> setTimeout(()=> li.classList.add('in'), 150 + i*90));
     })();
   </script>
 </body>
