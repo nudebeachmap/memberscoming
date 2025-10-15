@@ -12,8 +12,8 @@
       --nbm-secondary:#e49d25;/* orange (CTA) */
       --nbm-accent:#f8c014;   /* sunshine */
       --nbm-ink:#343537;      /* charcoal */
-      --nbm-deep:#26150e;     /* rich accent */
-      --nbm-bright:#fff200;   /* bright yellow (unused here) */
+      --nbm-deep:#26150e;     /* deep accent */
+      --nbm-bright:#fff200;   /* bright yellow */
       --nbm-paper:#ffffff;    /* white */
       --radius:24px;
     }
@@ -125,8 +125,15 @@
         <!-- RIGHT: visuals -->
         <div>
           <div class="media">
-            <div class="tiles" id="tiles"></div>
-            <!-- (no media hint text) -->
+            <div class="tiles">
+              <div class="tile"><img src="assets/NBM Mem1.jpeg" alt="Preview 1" loading="lazy"></div>
+              <div class="tile square"><img src="assets/NBM Mem2.jpeg" alt="Preview 2" loading="lazy"></div>
+              <div class="tile"><img src="assets/NBM Mem3.jpeg" alt="Preview 3" loading="lazy"></div>
+              <div class="tile square"><img src="assets/NBM Mem4.jpeg" alt="Preview 4" loading="lazy"></div>
+              <div class="tile"><img src="assets/NBM Mem5.png" alt="Preview 5" loading="lazy"></div>
+              <div class="tile square"><img src="assets/NBM Mem6.png" alt="Preview 6" loading="lazy"></div>
+            </div>
+            <!-- (no hint text) -->
           </div>
 
           <div class="status">
@@ -178,28 +185,6 @@
         } else {
           btn.textContent = wrap.classList.contains('open') ? 'Hide sign-up' : 'Get on the list';
         }
-      });
-
-      // Build tile grid from your six files
-      const files = [
-        'NBM Mem1.jpeg',
-        'NBM Mem2.jpeg',
-        'NBM Mem3.jpeg',
-        'NBM Mem4.jpeg',
-        'NBM Mem5.png',
-        'NBM Mem6.png'
-      ];
-      const tiles = document.getElementById('tiles');
-      const order = [0,1,2,3,4,5]; // show all six
-      order.forEach(function(idx, i){
-        const d = document.createElement('div');
-        d.className = 'tile'+(i%2===1?' square':'');
-        const img = document.createElement('img');
-        img.src = 'assets/'+files[idx];
-        img.alt = 'Preview '+(i+1);
-        img.loading = 'lazy';
-        d.appendChild(img);
-        tiles.appendChild(d);
       });
 
       // Intersection reveal for tiles
