@@ -51,8 +51,8 @@
 
     .ctaRow{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:18px}
     .btn{appearance:none; border:1px solid transparent; border-radius:16px; padding:12px 18px; font-weight:700; font-size:14px; cursor:pointer; transition:.25s ease, transform .25s ease}
-    .btnPrimary{background:var(--nbm-primary); color:white; box-shadow:0 10px 24px color-mix(in oklab, var(--nbm-primary) 30%, transparent)}
-    .btnPrimary:hover{opacity:.96; transform:translateY(-1px)}
+    .btnPrimary{background:var(--nbm-bright); color:var(--nbm-deep); border-color:color-mix(in oklab, var(--nbm-deep) 20%, transparent); box-shadow:0 10px 24px color-mix(in oklab, var(--nbm-bright) 45%, transparent)}
+    .btnPrimary:hover{filter:saturate(1.05); transform:translateY(-1px)}
     .hint{font-size:12px; color:#71717a}
 
     .collapser{display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease}
@@ -182,8 +182,8 @@
         'NBM Mem2.jpeg',
         'NBM Mem3.jpeg',
         'NBM Mem4.jpeg',
-        'mem5.png',
-        'mem6.png'
+        'NBM Mem5.png',
+        'NBM Mem6.png'
       ];
       const tiles = document.getElementById('tiles');
       const order = [0,1,2,3,4,5]; // show all six uniquely // uses 4, repeats nicely to 6
