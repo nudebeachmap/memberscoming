@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beach Bums Members — Coming Soon | Nude Beach Map</title>
+  <meta name="description" content="Beach Bums — the Nude Beach Map members club. Premium content, discounts, deep‑dive guides, and friendly forums. Founding spots opening soon." />
+  <link rel="preconnect" href="https://js.hsforms.net">
+  <style>
+    :root{
+      --nbm-primary:#0cbab4; /* teal */
+      --nbm-secondary:#e49d25; /* sand/orange */
+      --nbm-accent:#f8c014; /* sunshine */
+      --nbm-ink:#343537; /* charcoal */
+      --nbm-deep:#26150e; /* rich accent */
+      --nbm-bright:#fff200; /* bright yellow */
+      --nbm-paper:#ffffff; /* white */
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif; color:var(--nbm-ink);
+      background: linear-gradient(180deg,#f9fafb, #ffffff);
+    }
+    .wrap{max-width:1120px; padding:48px 20px; margin:0 auto}
+    .card{position:relative; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:var(--radius); box-shadow:0 10px 24px rgba(0,0,0,.06); overflow:hidden}
+    .heroGlow{position:absolute; inset:0; pointer-events:none; mask-image: radial-gradient(60% 60% at 50% 0%, #000 40%, transparent 100%);}
+    .heroGlow:before{content:""; position:absolute; left:50%; top:-110px; width:1200px; height:260px; transform:translateX(-50%); filter: blur(48px);
+      background:
+        radial-gradient(80% 80% at 30% 50%, color-mix(in oklab, var(--nbm-secondary) 22%, transparent), transparent 60%),
+        radial-gradient(80% 80% at 70% 50%, color-mix(in oklab, var(--nbm-primary) 28%, transparent), transparent 60%);
+      opacity:.9;
+    }
+    .grid{display:grid; gap:32px; grid-template-columns:1fr; padding:32px}
+    @media (min-width:992px){ .grid{grid-template-columns: 1fr 1fr;} }
+
+    /* left */
+    .brandRow{display:flex; align-items:center; gap:12px; margin-bottom:12px}
+    .brandRow img{height:40px; width:auto}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid color-mix(in oklab, var(--nbm-primary) 30%, transparent); background: color-mix(in oklab, var(--nbm-primary) 8%, transparent); font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color: color-mix(in oklab, var(--nbm-primary) 85%, black)}
+    h1{font-size:clamp(28px,3vw,40px); line-height:1.05; margin:8px 0 0}
+    p.lede{margin:16px 0 0; max-width:62ch; font-size:16px; line-height:1.6}
+    ul.perks{margin:18px 0 0; padding:0; list-style:none}
+    ul.perks li{display:flex; gap:12px; align-items:flex-start; margin:10px 0}
+    .tick{flex:0 0 auto; width:22px; height:22px; border-radius:999px; background:var(--nbm-primary); color:white; display:inline-flex; align-items:center; justify-content:center; font-weight:800}
+
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:18px}
+    .btn{appearance:none; border:1px solid transparent; border-radius:16px; padding:12px 18px; font-weight:700; font-size:14px; cursor:pointer; transition:.2s ease}
+    .btnPrimary{background:var(--nbm-primary); color:white}
+    .btnPrimary:hover{opacity:.92}
+    .hint{font-size:12px; color:#71717a}
+
+    .collapser{display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s ease}
+    .collapser.open{grid-template-rows:1fr}
+    .collapseInner{overflow:hidden}
+    .formMount{margin-top:16px; border:1px solid color-mix(in oklab, var(--nbm-primary) 25%, #d4d4d8); background:var(--nbm-paper); border-radius:16px; padding:16px; box-shadow:0 6px 16px rgba(0,0,0,.05)}
+
+    /* right */
+    .media{position:relative; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:var(--radius); box-shadow:0 8px 18px rgba(0,0,0,.05); padding:14px}
+    .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+    .tile{border-radius:14px; overflow:hidden; background:#eef2f7; aspect-ratio:4/5}
+    .tile.square{aspect-ratio:1/1}
+    .tile img{width:100%; height:100%; object-fit:cover; display:block}
+    .mediaHint{margin-top:8px; text-align:center; font-size:12px; color:#71717a}
+
+    .status{margin-top:16px; border:1px solid #e5e7eb; background:var(--nbm-paper); border-radius:16px; padding:16px; font-size:14px; color:#3f3f46}
+    .dot{width:8px; height:8px; border-radius:999px; background:var(--nbm-primary); display:inline-block; margin-right:8px; animation:pulse 1.5s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+    /* footer note */
+    .foot{padding:10px 32px 24px; font-size:12px; color:#71717a}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="heroGlow" aria-hidden="true"></div>
+      <div class="grid">
+        <!-- LEFT: copy -->
+        <div>
+          <div class="brandRow">
+            <img src="assets/nbm-logo.svg" alt="Nude Beach Map" />
+            <span class="badge">Beach Bums · Members</span>
+          </div>
+          <h1>Beach Bums Members — Coming Soon</h1>
+          <p class="lede">The only members club made for <strong>nude beach lovers</strong>. Expect premium content, hand‑picked discounts, deep‑dive guides, and a friendly forum to swap tips and trip ideas. Join the list to snag a <strong>founding spot</strong> the moment we open.</p>
+
+          <ul class="perks">
+            <li><span class="tick">✓</span><span>Members‑only beach guides & tools</span></li>
+            <li><span class="tick">✓</span><span>Exclusive resort & gear discounts</span></li>
+            <li><span class="tick">✓</span><span>Private forums (no spam, be kind)</span></li>
+            <li><span class="tick">✓</span><span>Early access to videos & premieres</span></li>
+            <li><span class="tick">✓</span><span>Priority invites to Nude Beach Trips</span></li>
+          </ul>
+
+          <div class="ctaRow">
+            <button id="toggleForm" class="btn btnPrimary">Get on the list</button>
+            <span class="hint">Founding spots will be limited</span>
+          </div>
+
+          <!-- collapsible HubSpot form -->
+          <div id="collapser" class="collapser" aria-live="polite">
+            <div class="collapseInner">
+              <div id="formMount" class="formMount"></div>
+            </div>
+          </div>
+
+          <p class="hint" style="margin-top:10px">We respect your inbox. Unsubscribe anytime.</p>
+        </div>
+
+        <!-- RIGHT: visuals -->
+        <div>
+          <div class="media">
+            <div class="tiles">
+              <div class="tile"><img src="assets/tile-portrait-01.jpg" alt="Preview 1" loading="lazy"></div>
+              <div class="tile square"><img src="assets/tile-square-01.jpg" alt="Preview 2" loading="lazy"></div>
+              <div class="tile"><img src="assets/tile-portrait-02.jpg" alt="Preview 3" loading="lazy"></div>
+              <div class="tile square"><img src="assets/tile-square-02.jpg" alt="Preview 4" loading="lazy"></div>
+              <div class="tile"><img src="assets/tile-portrait-03.jpg" alt="Preview 5" loading="lazy"></div>
+              <div class="tile square"><img src="assets/tile-square-03.jpg" alt="Preview 6" loading="lazy"></div>
+            </div>
+            <div class="mediaHint">Sneak peek · Guides · Forums · Discounts</div>
+          </div>
+
+          <div class="status">
+            <span class="dot"></span><strong>Status:</strong> In final polish. Launching soon.
+            <ul style="margin:8px 0 0 18px; padding:0;">
+              <li>Founding perks locked</li>
+              <li>Forum & guides in QA</li>
+              <li>Discount partners onboarding</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="foot">© Nude Beach Map</div>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const btn = document.getElementById('toggleForm');
+      const wrap = document.getElementById('collapser');
+      const mount = document.getElementById('formMount');
+      let loaded = false;
+      function ensureHs(){
+        return new Promise(function(resolve, reject){
+          if (window.hbspt && window.hbspt.forms) return resolve();
+          var existing = document.querySelector('script[src*="js.hsforms.net/forms/embed/v2.js"]');
+          if (existing){ existing.addEventListener('load', resolve); existing.addEventListener('error', reject); return; }
+          var s = document.createElement('script');
+          s.src='//js.hsforms.net/forms/embed/v2.js'; s.async = true; s.onload = resolve; s.onerror = reject; document.body.appendChild(s);
+        });
+      }
+      btn.addEventListener('click', function(){
+        wrap.classList.toggle('open');
+        if (!loaded){
+          ensureHs().then(function(){
+            if (!window.hbspt || !window.hbspt.forms || !mount) return;
+            window.hbspt.forms.create({
+              portalId: '45610755',
+              formId: 'd20eb539-32e0-438a-bc4e-a6a2fd80d6c1',
+              region: 'na1',
+              target: '#formMount'
+            });
+            loaded = true;
+            btn.textContent = 'Hide sign-up';
+          }).catch(function(){
+            mount.innerHTML = '<div style="border:1px solid #fecaca;background:#fee2e2;color:#b91c1c;padding:12px;border-radius:12px">Signup form failed to load. Email <a href="mailto:matt@nudebeachmap.com?subject=Founding%20Members%20Access" style="text-decoration:underline">matt@nudebeachmap.com</a> and we\'ll add you manually.</div>';
+          });
+        } else {
+          btn.textContent = wrap.classList.contains('open') ? 'Hide sign-up' : 'Get on the list';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
